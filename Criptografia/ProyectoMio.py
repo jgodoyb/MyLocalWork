@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+from tkinter import ttk
 from tkinter import filedialog, messagebox
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding, serialization
@@ -243,47 +244,61 @@ def generate_rsa_keys_action():
 # Interfaz gráfica de Tkinter
 root = tk.Tk()
 root.title("Cifrado de Archivos con AES y RSA")
+root.geometry("500x400")
+root.config(bg="#f0f0f0")
 
-key_size_var = tk.StringVar(value="256")  # Valor predeterminado es 256
+# Variable de selección para el tamaño de clave y el modo de cifrado
+key_size_var = tk.StringVar(value="256")
 cipher_mode_var = tk.StringVar(value="CBC")
 rsa_option = tk.IntVar(value=0)
 
-# UI
-key_size_label = tk.Label(root, text="Tamaño de la clave AES:")
-key_size_label.grid(row=0, column=0, padx=10, pady=10)
+# Estilo
+style = ttk.Style()
+style.configure("TLabel", font=("Arial", 10), background="#f0f0f0")
+style.configure("TButton", font=("Arial", 10), padding=5)
+style.configure("TCheckbutton", font=("Arial", 10), background="#f0f0f0")
+style.configure("TOptionMenu", font=("Arial", 10))
 
-# Reemplaza Entry por OptionMenu
-key_size_options = ["128", "192", "256"]  # Opciones disponibles de tamaño de clave
-key_size_menu = tk.OptionMenu(root, key_size_var, *key_size_options)
-key_size_menu.grid(row=0, column=1, padx=10, pady=10)
+# Etiquetas y opciones de tamaño de clave
+key_size_label = ttk.Label(root, text="Tamaño de la clave AES:")
+key_size_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
-cipher_mode_label = tk.Label(root, text="Modo de cifrado:")
-cipher_mode_label.grid(row=1, column=0, padx=10, pady=10)
+key_size_options = ["128", "192", "256"]
+key_size_menu = ttk.OptionMenu(root, key_size_var, *key_size_options)
+key_size_menu.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+
+# Etiquetas y opciones de modo de cifrado
+cipher_mode_label = ttk.Label(root, text="Modo de cifrado:")
+cipher_mode_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
 cipher_mode_options = ["CBC", "CFB", "ECB"]
-cipher_mode_menu = tk.OptionMenu(root, cipher_mode_var, *cipher_mode_options)
-cipher_mode_menu.grid(row=1, column=1, padx=10, pady=10)
+cipher_mode_menu = ttk.OptionMenu(root, cipher_mode_var, *cipher_mode_options)
+cipher_mode_menu.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
-rsa_checkbox = tk.Checkbutton(root, text="Usar RSA para cifrar la clave AES", variable=rsa_option)
-rsa_checkbox.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+# Checkbox para RSA
+rsa_checkbox = ttk.Checkbutton(root, text="Usar RSA para cifrar la clave AES", variable=rsa_option)
+rsa_checkbox.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="w")
 
-# Botones
-generate_rsa_button = tk.Button(root, text="Generar claves RSA", command=generate_rsa_keys_action)
-generate_rsa_button.grid(row=3, column=0, columnspan=2, pady=10)
+# Botón para generar claves RSA
+generate_rsa_button = ttk.Button(root, text="Generar claves RSA", command=generate_rsa_keys_action)
+generate_rsa_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
-encrypt_button = tk.Button(root, text="Cifrar Archivo", command=load_and_encrypt_any_file)
-encrypt_button.grid(row=4, column=0, columnspan=2, pady=10)
+# Botones de cifrado y descifrado de archivo
+encrypt_button = ttk.Button(root, text="Cifrar Archivo", command=load_and_encrypt_any_file)
+encrypt_button.grid(row=4, column=0, padx=10, pady=10)
 
-decrypt_button = tk.Button(root, text="Descifrar Archivo", command=decrypt_action)
-decrypt_button.grid(row=5, column=0, columnspan=2, pady=10)
+decrypt_button = ttk.Button(root, text="Descifrar Archivo", command=decrypt_action)
+decrypt_button.grid(row=4, column=1, padx=10, pady=10)
 
-text_input_label = tk.Label(root, text="Texto a cifrar:")
-text_input_label.grid(row=6, column=0, padx=10, pady=10)
+# Texto y botón para cifrar texto
+text_input_label = ttk.Label(root, text="Texto a cifrar:")
+text_input_label.grid(row=5, column=0, padx=10, pady=10, sticky="w")
 
-text_input = tk.Text(root, height=4, width=40)
-text_input.grid(row=6, column=1, padx=10, pady=10)
+text_input = tk.Text(root, height=4, width=40, font=("Arial", 10))
+text_input.grid(row=5, column=1, padx=10, pady=10, sticky="w")
 
-encrypt_text_button = tk.Button(root, text="Cifrar Texto", command=encrypt_text)
-encrypt_text_button.grid(row=7, column=0, columnspan=2, pady=10)
+encrypt_text_button = ttk.Button(root, text="Cifrar Texto", command=encrypt_text)
+encrypt_text_button.grid(row=6, column=0, columnspan=2, pady=10)
 
+# Ejecutar el bucle principal de la ventana
 root.mainloop()
