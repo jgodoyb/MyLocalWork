@@ -189,7 +189,7 @@ def encrypt_with_selected_users():
 
         # Si hay usuarios adicionales seleccionados, procesarlos
         for user in selected_users:
-            user_dir = os.path.join("usuarios", user)
+            user_dir = os.path.join("users", user)
             public_key_path = os.path.join(user_dir, "clave_publica.pem")
             cert_path = os.path.join(user_dir, "certificado.json")
 
@@ -324,7 +324,7 @@ def encrypt_text():
 
         # Verificar certificados y cifrar la clave AES para cada usuario
         for user in selected_users:
-            user_dir = os.path.join("usuarios", user)
+            user_dir = os.path.join("users", user)
             public_key_path = os.path.join(user_dir, "clave_publica.pem")
             cert_path = os.path.join(user_dir, "certificado.json")
 
@@ -397,7 +397,7 @@ def generate_aes_key_from_license():
 
 # Cifra la clave privada del root utilizando AES.
 def encrypt_root_private_key():
-    root_dir = "usuarios/root"  # La carpeta del usuario Root
+    root_dir = "users/root"  # La carpeta del usuario Root
 
     # Asegúrate de que la carpeta existe
     if not os.path.exists(root_dir):
@@ -452,7 +452,7 @@ def encrypt_root_private_key():
 # Crea un certificado digital para un usuario, firmando su clave pública con la clave privada del root.
 def create_user_certificate(username):
     # Ruta del directorio del usuario
-    user_dir = f"usuarios/{username}"
+    user_dir = f"users/{username}"
     if not os.path.exists(user_dir):
         os.makedirs(user_dir)
 
@@ -466,7 +466,7 @@ def create_user_certificate(username):
         user_public_key_data = pub_file.read()
 
     # Ruta del directorio del root
-    root_dir = "usuarios/root"
+    root_dir = "users/root"
     aes_key_path = os.path.join(root_dir, "aes_key.bin")
     encrypted_private_key_path = os.path.join(root_dir, "clave_privada_cifrada_con_aes_key.bin")
     
@@ -531,9 +531,9 @@ def create_user_certificate(username):
 def verificar_certificado_usuario(username):
     """Verifica el certificado de un usuario específico."""
     try:
-        user_dir = os.path.join("usuarios", username)
+        user_dir = os.path.join("users", username)
         ruta_certificado_usuario = os.path.join(user_dir, "certificado.json")
-        ruta_clave_publica_root = os.path.join("usuarios", "root", "clave_publica.pem")
+        ruta_clave_publica_root = os.path.join("users", "root", "clave_publica.pem")
 
         # 1. Cargar certificado y clave pública del root
         with open(ruta_certificado_usuario, "r") as f:
@@ -602,7 +602,7 @@ def open_main_window():
     user_list.grid(row=3, column=1, padx=10, pady=10, sticky="w")
 
     # Cargar usuarios en el listado
-    user_dir = "usuarios"
+    user_dir = "users"
     if os.path.exists(user_dir):
         for user in os.listdir(user_dir):
             if user != loaded_username:  # Evitar incluir al usuario actual
@@ -693,7 +693,7 @@ def login():
 def login_action(username, password):
     global loaded_private_key, loaded_public_key, loaded_username, loaded_password  # Claves accesibles globalmente
 
-    user_dir = os.path.join("usuarios", username)
+    user_dir = os.path.join("users", username)
 
     if not os.path.exists(user_dir):
         # Crear carpeta para el nuevo usuario
@@ -779,7 +779,7 @@ def login_action(username, password):
 # Verifica una cuenta existente, cargando las claves y validando la contraseña cifrada del usuario.
 def identificacion_login(username, password):
     global loaded_private_key, loaded_public_key, loaded_username, loaded__password  # Claves accesibles globalmente
-    user_dir = os.path.join("usuarios", username)
+    user_dir = os.path.join("users", username)
 
     if not os.path.exists(user_dir):
         messagebox.showinfo("Error", "El usuario no existe. Por favor, regístrese primero.")
