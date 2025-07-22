@@ -17,12 +17,6 @@ SecureSign is a robust cryptographic toolkit that enables developers to implemen
 
 -----
 
-## Security Architecture
-
-DiagramCode (Consider embedding an image here if you have a diagram, e.g., `![Architecture Diagram](images/architecture.png)`)
-
------
-
 ## Prerequisites
 
   * Python 3.7 or higher
