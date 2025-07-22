@@ -2,7 +2,7 @@
 
 ## Overview
 
-MyLocalWork is a robust cryptographic toolkit that enables developers to implement secure data encryption, key management, and cryptographic operations. This application integrates classical cryptography methods like RSA and AES with a hierarchical certificate-based authentication system, providing a comprehensive security solution for sensitive data management.
+SecureSign is a robust cryptographic toolkit that enables developers to implement secure data encryption, key management, and cryptographic operations. This application integrates classical cryptography methods like RSA and AES with a hierarchical certificate-based authentication system, providing a comprehensive security solution for sensitive data management.
 
 -----
 
@@ -43,7 +43,7 @@ DiagramCode (Consider embedding an image here if you have a diagram, e.g., `![Ar
 1.  **Run the application:**
 
     ```bash
-    python crypto_app.py
+    python CryptoShield.py
     ```
 
 2.  **In the login window:**
